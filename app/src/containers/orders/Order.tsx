@@ -19,16 +19,6 @@ import { useSearchParams, Link } from 'react-router-dom'
 import axiosConfig from '../../axiosConfig'
 import { appRoutes } from '../../routes'
 
-// INFO: Buy order example
-// {
-//   "id": Number, // the internal id of the Buy Order
-//   "name": String, // the name of the Buy Order
-//   "createdAt": Date, // the date at which the Buy Order was created
-//   "datasetIds": Array[Number], // a list of the Datasets from which to purchase
-//   "countries": Array[String] // a list of the two-digit country codes from which to purchase data,
-//   "budget": Number // the maximum cost of the Buy Order in USD
-// }
-
 export interface Order {
   name: string
   createdAt: Date

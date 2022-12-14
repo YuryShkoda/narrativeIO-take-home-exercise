@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import AppBarMui from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
-import Tabs from '@mui/material//Tabs'
+import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import { makeStyles } from 'tss-react/mui'
 import { Link } from 'react-router-dom'

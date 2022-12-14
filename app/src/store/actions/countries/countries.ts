@@ -1,6 +1,5 @@
 import * as actionTypes from '../actionTypes'
 import { Country } from '../../../components/selectors/CountrySelector/CountrySelector'
-// import { loadState } from '../../../utils/localStorage'
 
 export const setCountries = (countries: Country[]) => {
   return {
