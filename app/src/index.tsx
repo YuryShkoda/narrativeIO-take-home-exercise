@@ -5,6 +5,23 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
+import rootReducer from './store/reducers/rootReducer'
+import { configureStore } from '@reduxjs/toolkit'
+import { saveState } from './utils'
+import _ from 'lodash'
+
+const store = configureStore({ reducer: rootReducer })
+
+store.subscribe(
+  _.throttle(() => {
+    saveState({
+      countries: store.getState().countries,
+      storedData: store.getState().storedData,
+      datasets: store.getState().datasets,
+      orders: store.getState().orders
+    })
+  }, 1000)
+)
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
