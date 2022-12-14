@@ -70,7 +70,7 @@ const Orders = (props: OrdersProps) => {
     </div>
   )
 
-  const countries = countriesInState.reduce(
+  const filteredCountries = countriesInState.reduce(
     (acc: Country[], country: Country) => {
       if (
         [...new Set(orders.flatMap((order) => order.countries))].includes(
@@ -84,6 +84,14 @@ const Orders = (props: OrdersProps) => {
       return acc
     },
     []
+  )
+
+  const filteredOrders = orders.filter((order) =>
+    order.countries.find((countryCode) =>
+      filteredCountries
+        .map((country) => country.countryCode)
+        .includes(countryCode)
+    )
   )
 
   return (
@@ -108,44 +116,36 @@ const Orders = (props: OrdersProps) => {
         </Button>
       </Link>
       <ListSummary
-        amount={orders.length}
-        countries={countries.map((country) => country.name)}
+        amount={filteredOrders.length}
+        countries={filteredCountries.map((country) => country.name)}
       />
       <div style={{ display: 'flex', flexDirection: 'column', rowGap: 20 }}>
-        {orders
-          .filter((order) =>
-            order.countries.find((countryCode) =>
-              countries
-                .map((country) => country.countryCode)
-                .includes(countryCode)
-            )
-          )
-          .map((order) => (
-            <Link
-              to={`/${appRoutes.viewOrder}?id=${order.id}`}
-              key={order.id}
-              className="noDecoration"
-            >
-              <Card>
-                <CardContent>
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      justifyContent: 'space-between'
-                    }}
-                  >
-                    {getOrderItem('Order Name', order.name)}
-                    {getOrderItem(
-                      'Date Created',
-                      dateToMMDDYYYY(order.createdAt)
-                    )}
-                    {getOrderItem('Budget', '$' + order.budget)}
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
+        {filteredOrders.map((order) => (
+          <Link
+            to={`/${appRoutes.viewOrder}?id=${order.id}`}
+            key={order.id}
+            className="noDecoration"
+          >
+            <Card>
+              <CardContent>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between'
+                  }}
+                >
+                  {getOrderItem('Order Name', order.name)}
+                  {getOrderItem(
+                    'Date Created',
+                    dateToMMDDYYYY(order.createdAt)
+                  )}
+                  {getOrderItem('Budget', '$' + order.budget)}
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+        ))}
       </div>
       <CountrySelector />
     </div>
